@@ -268,49 +268,62 @@ export default function GamesModeScreen() {
             </View>
           </View>
 
-          {/* Row: THREE Games + Calendar (4 aligned) */}
-          <View style={styles.row}>
-              {/* Game 2 */}
-              <View style={[styles.cardWide, { marginRight: 18 }]}>
-  <Text style={styles.cardTitle}>Game 2</Text>
-  <View style={styles.gamePlaceholder} />
-  <View style={styles.gameBtns}>
-    <Pressable
-      style={styles.btnPrimary}
-      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
-    >
-      <Text style={styles.btnPrimaryText}>Play</Text>
-    </Pressable>
+         {/* Row: THREE Games + Calendar (4 aligned) */}
+<View style={styles.row}>
+  {/* Game 1 */}
+  <View style={[styles.cardWide, { marginRight: 18 }]}>
+    <Text style={styles.cardTitle}>Game 1</Text>
+    <Image
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
+      style={styles.gameImg}
+      resizeMode="cover"
+    />
+    <View style={styles.gameBtns}>
+      <Pressable
+        style={styles.btnPrimary}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")}
+      >
+        <Text style={styles.btnPrimaryText}>Play</Text>
+      </Pressable>
+    </View>
   </View>
-</View>
 
-             {/* Game 2 */}
-             <View style={[styles.cardWide, { marginRight: 18 }]}>
-  <Text style={styles.cardTitle}>Game 2</Text>
-  <View style={styles.gamePlaceholder} />
-  <View style={styles.gameBtns}>
-    <Pressable
-      style={styles.btnPrimary}
-      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
-    >
-      <Text style={styles.btnPrimaryText}>Play</Text>
-    </Pressable>
+  {/* Game 2 */}
+  <View style={[styles.cardWide, { marginRight: 18 }]}>
+    <Text style={styles.cardTitle}>Game 2</Text>
+    <Image
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game1" }}
+      style={styles.gameImg}
+      resizeMode="cover"
+    />
+    <View style={styles.gameBtns}>
+      <Pressable
+        style={styles.btnPrimary}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")}
+      >
+        <Text style={styles.btnPrimaryText}>Play</Text>
+      </Pressable>
+    </View>
   </View>
-</View>
 
-            {/* Game 3 */}
-            <View style={[styles.cardWide, { marginRight: 18 }]}>
-  <Text style={styles.cardTitle}>Game 3</Text>
-  <View style={styles.gamePlaceholder} />
-  <View style={styles.gameBtns}>
-    <Pressable
-      style={styles.btnPrimary}
-      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
-    >
-      <Text style={styles.btnPrimaryText}>Play</Text>
-    </Pressable>
+  {/* Game 3 */}
+  <View style={[styles.cardWide, { marginRight: 18 }]}>
+    <Text style={styles.cardTitle}>Game 3</Text>
+    <Image
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
+      style={styles.gameImg}
+      resizeMode="cover"
+    />
+    <View style={styles.gameBtns}>
+      <Pressable
+        style={styles.btnPrimary}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
+      >
+        <Text style={styles.btnPrimaryText}>Play</Text>
+      </Pressable>
+    </View>
   </View>
-</View>
+
 
             {/* Calendar */}
             <View style={styles.cardCal}>
@@ -537,7 +550,15 @@ const styles = StyleSheet.create({
 
   /* Main area */
   main: { flex: 1 },
-
+  gameImg: {
+    height: 160,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E4E9FF",
+    marginBottom: 12,
+    width: "100%",     // full width of card
+  },
+  
   topBar: {
     marginTop: S * 2,
     marginHorizontal: S * 3,

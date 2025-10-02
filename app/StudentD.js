@@ -14,6 +14,7 @@ import {
 import { useRouter } from "expo-router";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { Linking } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -139,60 +140,68 @@ export default function Dashboard() {
 
 
           {/* ===== ROW 1: [Games | Educational]  ||  [Leaderboard] ===== */}
-          <View style={styles.gridRow}>
-            {/* LEFT: split row for Games + Educational */}
-            <View style={styles.leftCol}>
-              <View style={styles.leftSplitRow}>
-                <CardWithHeader title="Games" style={{ flex: 1 }} minH={leaderboardH}>
-                  <View style={styles.tileRow}>
-                    <Tile />
-                    <Tile />
-                  </View>
-                  <View style={styles.tileLabelsRow}>
-                    <Text style={styles.tileLabel}>NAME</Text>
-                    <Text style={styles.tileLabel}>NAME</Text>
-                  </View>
-                </CardWithHeader>
+<View style={styles.gridRow}>
+  {/* LEFT: split row for Games + Educational */}
+  <View style={styles.leftCol}>
+    <View style={styles.leftSplitRow}>
+      {/* Games */}
+      <CardWithHeader title="Games" style={{ flex: 1 }} minH={leaderboardH}>
+        <View style={styles.tileRow}>
+          {/* Game Tile 1 */}
+          <Pressable onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")} style={styles.tileWrap}>
+            <Image
+              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
+              style={styles.tileImg}
+              resizeMode="cover"
+            />
+          </Pressable>
 
-                <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
-                  <View style={styles.tileRow}>
-                    <Tile />
-                  </View>
-                  <View style={styles.tileLabelsRow}>
-                    <Text style={styles.tileLabel}>NAME</Text>
-                  </View>
-                </CardWithHeader>
-              </View>
-            </View>
+          {/* Game Tile 2 */}
+          <Pressable onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")} style={styles.tileWrap}>
+            <Image
+              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game1" }}
+              style={styles.tileImg}
+              resizeMode="cover"
+            />
+          </Pressable>
+        </View>
+        <View style={styles.tileLabelsRow}>
+          <Text style={styles.tileLabel}>Thumbs</Text>
+          <Text style={styles.tileLabel}>Numbers</Text>
+        </View>
+      </CardWithHeader>
 
-            {/* RIGHT: Leaderboard (measure height) */}
-            <View style={styles.rightCol}>
-              <View onLayout={(e) => setLeaderboardH(e.nativeEvent.layout.height)}>
-                <CardWithHeader title="Leaderboard" compact>
-                  <View style={styles.leaderboard}>
-                    <Podium place={2} name="Maher"  points={640} />
-                    <Podium place={1} name="Salman" points={660} big />
-                    <Podium place={3} name="Mosab" points={600} />
-                  </View>
-                </CardWithHeader>
-              </View>
-            </View>
-          </View>
+      {/* Educational */}
+      <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
+        <View style={styles.tileRow}>
+          <Pressable onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")} style={styles.tileWrap}>
+            <Image
+              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
+              style={styles.tileImg}
+              resizeMode="cover"
+            />
+          </Pressable>
+        </View>
+        <View style={styles.tileLabelsRow}>
+          <Text style={styles.tileLabel}>Educational</Text>
+        </View>
+      </CardWithHeader>
+    </View>
+  </View>
 
-          {/* ===== ROW 2 HEADERS ===== */}
-          <View style={[styles.gridRow, { marginTop: G, alignItems: "flex-end" }]}>
-            <View style={styles.leftCol}>
-              <Text style={styles.h2}>Your badges</Text>
-            </View>
-            <View style={styles.rightCol}>
-              <View style={styles.headerRightRow}>
-                <Text style={styles.h2}>Daily Tasks</Text>
-                <Pressable>
-                  <Text style={styles.headerLink}>See all</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
+  {/* RIGHT: Leaderboard (measure height) */}
+  <View style={styles.rightCol}>
+    <View onLayout={(e) => setLeaderboardH(e.nativeEvent.layout.height)}>
+      <CardWithHeader title="Leaderboard" compact>
+        <View style={styles.leaderboard}>
+          <Podium place={2} name="Maher" points={640} />
+          <Podium place={1} name="Salman" points={660} big />
+          <Podium place={3} name="Mosab" points={600} />
+        </View>
+      </CardWithHeader>
+    </View>
+  </View>
+</View>
 
           {/* ===== ROW 2 CONTENT: [Badges] || [Daily Tasks] ===== */}
           <View style={[styles.gridRow, { alignItems: "stretch" }]}>
@@ -462,6 +471,19 @@ const styles = StyleSheet.create({
     bottom: S * 3,
     alignItems: "center",
   },
+  tileImg: {
+    width: 120,         // adjust size as needed
+    height: 100,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E4E9FF",
+    marginHorizontal: 6,
+  },
+  tileWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
   // keep old name too, in case something else imports it
   joinWrapSolid: {
     position: "absolute",
@@ -604,7 +626,7 @@ const styles = StyleSheet.create({
   moreText: { color: COLORS.white, fontWeight: "800", fontSize: 12 },
   cardBody: { padding: G, flexGrow: 1 },
 
-  tileRow: { flexDirection: "row", gap: G },
+  tileRow: { flexDirection: "row", gap: G,  alignItems: "center",  },
   tile: { flex: 1, height: 110, borderRadius: 16, backgroundColor: "#ECEFF6" },
   tileLabelsRow: { marginTop: S, flexDirection: "row", gap: G },
   tileLabel: {
