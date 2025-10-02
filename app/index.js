@@ -130,7 +130,7 @@ export default function HomeScreen() {
             <View style={styles.illoCard}>
               <Image
                 source={{
-                  uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/MainPageImg",
+                  uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/HomePageImg",
                 }}
                 style={styles.illoImg}
                 resizeMode="contain"

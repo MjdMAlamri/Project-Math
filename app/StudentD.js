@@ -174,7 +174,7 @@ export default function Dashboard() {
       {/* Educational */}
       <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
         <View style={styles.tileRow}>
-          <Pressable onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")} style={styles.tileWrap}>
+          <Pressable onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")} >
             <Image
               source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
               style={styles.tileImg}
