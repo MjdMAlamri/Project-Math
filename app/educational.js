@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { Linking } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -103,9 +104,12 @@ export default function Educational() {
               </Text>
 
               {/* Use Pressable + router to avoid Link+asChild issues on web */}
-              <Pressable style={styles.startBtn} onPress={() => router.push("/work-check")}>
-                <Text style={styles.startTxt}>Start</Text>
-              </Pressable>
+              <Pressable
+  style={styles.startBtn}
+  onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")}
+>
+  <Text style={styles.startTxt}>Start</Text>
+</Pressable>
             </View>
 
             <Image
