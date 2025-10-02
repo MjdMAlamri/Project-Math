@@ -1,7 +1,8 @@
 // app/classes.js
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet,Pressable, Image, TouchableOpacity } from "react-native";
 import DashboardBase from "../components/DashboardBase";
+import { Link } from "expo-router";
 
 const COLORS = {
   bg: "#F5F6FA",
@@ -26,17 +27,18 @@ export default function Classes() {
         </View>
       </View>
 
-      {/* Classes Grid */}
-      <View style={styles.grid}>
-        {["Class 1", "Class 2", "Class 3", "Class 4"].map((cls, i) => (
-          <TouchableOpacity key={i} style={[styles.classCard, styles.shadowSm]}>
-            <View style={styles.iconTile}>
-              <View style={styles.iconInner} />
-            </View>
-            <Text style={styles.className}>{cls}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <View style={StyleSheet.flatten([styles.grid])}>
+  {["Class 1", "Class 2", "Class 3", "Class 4"].map((cls, i) => (
+    <Link key={i} href="/ClassesPage">
+      <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
+        <View style={styles.iconTile}>
+          <View style={styles.iconInner} />
+        </View>
+        <Text style={styles.className}>{cls}</Text>
+      </Pressable>
+    </Link>
+  ))}
+</View>
     </DashboardBase>
   );
 }
@@ -71,20 +73,15 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: "contain",
   },
-
-  /* Grid */
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    rowGap: G,                 // RN Web supports rowGap; fallbacks handled by marginBottom on cards
-    columnGap: G,
   },
-
-  /* Class card */
+  
   classCard: {
-    width: "30%",
-    minHeight: 200,            // roomy boxes like screenshot
+    width: "200%",             // 2 cards per row
+    minHeight: 300,
     backgroundColor: COLORS.card,
     borderRadius: 18,
     borderWidth: 1,
@@ -93,8 +90,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: G,           // fallback spacing for native
+    marginBottom: G,          // spacing between rows
   },
+  
+  
   iconTile: {
     width: 64,
     height: 64,

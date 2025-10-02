@@ -14,8 +14,9 @@ import {
   Platform,
   TextInput,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import { Ionicons, Feather } from "@expo/vector-icons";
+import { Linking } from "react-native";
 
 /* -------------------- Design Tokens -------------------- */
 const S = 8;
@@ -74,13 +75,15 @@ const SidebarItem = ({ icon, label, to, active, onNavigate }) => (
   <Pressable onPress={() => onNavigate?.(to)} style={{ paddingHorizontal: S * 2, paddingVertical: 2 }}>
     <View style={[styles.itemInner, active && styles.itemActive]}>
       <Ionicons name={icon} size={18} color={active ? COLORS.navy : "#E6ECFF"} style={{ marginRight: 12 }} />
-      <Text style={[styles.itemText, active && styles.itemTextActive]} numberOfLines={2}>{label}</Text>
+      <Text style={[styles.itemText, active && styles.itemTextActive]} numberOfLines={2}>
+        {label}
+      </Text>
     </View>
   </Pressable>
 );
 
 const Sidebar = ({ current = "edu", onNavigate }) => {
-  const router = useRouter(); // ✅ Hook lives inside the component that uses it
+  const router = useRouter();
   return (
     <View style={styles.sidebar}>
       <View style={styles.brand}>
@@ -101,16 +104,12 @@ const Sidebar = ({ current = "edu", onNavigate }) => {
         <SidebarItem icon="settings-outline" label="Settings" to="settings" active={current === "settings"} onNavigate={onNavigate} />
       </View>
 
-      {/* Join Quiz card — Pressable + router.push (no Link) */}
+      {/* Join Quiz */}
       <View style={styles.joinWrap}>
         <Pressable
           accessibilityRole="link"
           onPress={() => router.push("/Join-Quiz")}
-          style={({ pressed }) => [
-            styles.joinCard,
-            shadow,
-            pressed && { opacity: 0.9 },
-          ]}
+          style={({ pressed }) => [styles.joinCard, shadow, pressed && { opacity: 0.9 }]}
         >
           <View style={styles.plusBox}>
             <Ionicons name="add" size={34} color={COLORS.navy} />
@@ -140,7 +139,10 @@ const TopBar = ({ greeting = "Good morning, Salman" }) => {
         </View>
 
         <View style={styles.avatarWrap}>
-          <Image source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/avatarimg" }} style={styles.avatar} />
+          <Image
+            source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/avatarimg" }}
+            style={styles.avatar}
+          />
           <Ionicons name="chevron-down" size={16} color="#9CA3AF" />
         </View>
       </View>
@@ -150,7 +152,7 @@ const TopBar = ({ greeting = "Good morning, Salman" }) => {
 
 /* -------------------- Page -------------------- */
 export default function GamesModeScreen() {
-  const router = useRouter(); // used below for Play buttons & side nav
+  const router = useRouter();
 
   // Badge modal state
   const [badgeModal, setBadgeModal] = useState({ open: false, badge: null });
@@ -162,7 +164,7 @@ export default function GamesModeScreen() {
   const toNext = Math.max(0, nextLevelAt - points);
   const levelPct = Math.min(1, points / nextLevelAt);
 
-  // Games
+  // Games (also link-based below)
   const playGame = (id) => router.push(`/games-mode/game-${id}`);
 
   // Challenges
@@ -247,14 +249,20 @@ export default function GamesModeScreen() {
             </Text>
 
             <View style={styles.progressWrap}>
-              <View style={styles.bubbleLeft}><Text style={styles.levelBubbleText}>{level}</Text></View>
-              <View style={styles.bubbleRight}><Text style={styles.levelRightBubbleText}>{level + 1}</Text></View>
+              <View style={styles.bubbleLeft}>
+                <Text style={styles.levelBubbleText}>{level}</Text>
+              </View>
+              <View style={styles.bubbleRight}>
+                <Text style={styles.levelRightBubbleText}>{level + 1}</Text>
+              </View>
 
               <View style={styles.progressBG}>
                 <View style={[styles.progressFill, { width: `${levelPct * 100}%` }]} />
                 <View style={styles.progressMeta}>
                   <Ionicons name="star" size={14} color="#c18b00" />
-                  <Text style={styles.progressText}>{points}/{nextLevelAt}</Text>
+                  <Text style={styles.progressText}>
+                    {points}/{nextLevelAt}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -262,36 +270,49 @@ export default function GamesModeScreen() {
 
           {/* Row: THREE Games + Calendar (4 aligned) */}
           <View style={styles.row}>
-            <View style={[styles.cardWide, { marginRight: 18 }]}>
-              <Text style={styles.cardTitle}>Game 1</Text>
-              <View style={styles.gamePlaceholder} />
-              <View style={styles.gameBtns}>
-                <Pressable style={styles.btnPrimary} onPress={() => playGame(1)}>
-                  <Text style={styles.btnPrimaryText}>Play</Text>
-                </Pressable>
-              </View>
-            </View>
+              {/* Game 2 */}
+              <View style={[styles.cardWide, { marginRight: 18 }]}>
+  <Text style={styles.cardTitle}>Game 2</Text>
+  <View style={styles.gamePlaceholder} />
+  <View style={styles.gameBtns}>
+    <Pressable
+      style={styles.btnPrimary}
+      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
+    >
+      <Text style={styles.btnPrimaryText}>Play</Text>
+    </Pressable>
+  </View>
+</View>
 
-            <View style={[styles.cardWide, { marginRight: 18 }]}>
-              <Text style={styles.cardTitle}>Game 2</Text>
-              <View style={styles.gamePlaceholder} />
-              <View style={styles.gameBtns}>
-                <Pressable style={styles.btnPrimary} onPress={() => playGame(2)}>
-                  <Text style={styles.btnPrimaryText}>Play</Text>
-                </Pressable>
-              </View>
-            </View>
+             {/* Game 2 */}
+             <View style={[styles.cardWide, { marginRight: 18 }]}>
+  <Text style={styles.cardTitle}>Game 2</Text>
+  <View style={styles.gamePlaceholder} />
+  <View style={styles.gameBtns}>
+    <Pressable
+      style={styles.btnPrimary}
+      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
+    >
+      <Text style={styles.btnPrimaryText}>Play</Text>
+    </Pressable>
+  </View>
+</View>
 
+            {/* Game 3 */}
             <View style={[styles.cardWide, { marginRight: 18 }]}>
-              <Text style={styles.cardTitle}>Game 3</Text>
-              <View style={styles.gamePlaceholder} />
-              <View style={styles.gameBtns}>
-                <Pressable style={styles.btnPrimary} onPress={() => playGame(3)}>
-                  <Text style={styles.btnPrimaryText}>Play</Text>
-                </Pressable>
-              </View>
-            </View>
+  <Text style={styles.cardTitle}>Game 3</Text>
+  <View style={styles.gamePlaceholder} />
+  <View style={styles.gameBtns}>
+    <Pressable
+      style={styles.btnPrimary}
+      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
+    >
+      <Text style={styles.btnPrimaryText}>Play</Text>
+    </Pressable>
+  </View>
+</View>
 
+            {/* Calendar */}
             <View style={styles.cardCal}>
               <View style={styles.calHeader}>
                 <Pressable onPress={() => shiftMonth(-1)}>
@@ -304,8 +325,10 @@ export default function GamesModeScreen() {
               </View>
 
               <View style={styles.calWeekRow}>
-                {["MON","TUE","WED","THU","FRI","SAT","SUN"].map((d, idx) => (
-                  <Text key={d} style={[styles.calWeekText, idx !== 6 && { marginRight: 4 }]}>{d}</Text>
+                {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((d, idx) => (
+                  <Text key={d} style={[styles.calWeekText, idx !== 6 && { marginRight: 4 }]}>
+                    {d}
+                  </Text>
                 ))}
               </View>
 
@@ -369,11 +392,7 @@ export default function GamesModeScreen() {
               <View style={styles.badgeGridWrap}>
                 <View style={styles.badgeGrid}>
                   {badges.slice(0, 6).map((b) => (
-                    <TouchableOpacity
-                      key={b.id}
-                      style={[styles.badge, { margin: 6 }]}
-                      onPress={() => openBadge(b)}
-                    >
+                    <TouchableOpacity key={b.id} style={[styles.badge, { margin: 6 }]} onPress={() => openBadge(b)}>
                       <View style={[styles.badgeIcon, tierColor(b.tier)]}>
                         {b.imageUri ? (
                           <Image source={{ uri: b.imageUri }} style={styles.badgeImg} resizeMode="contain" />
@@ -495,7 +514,15 @@ const styles = StyleSheet.create({
   /* Sidebar */
   sidebar: { width: SIDEBAR_W, backgroundColor: COLORS.navy, position: "relative", paddingTop: S * 3, paddingBottom: S * 3 },
   brand: { paddingHorizontal: S * 2, flexDirection: "row", alignItems: "center" },
-  brandIcon: { width: 28, height: 28, borderRadius: 6, backgroundColor: "rgba(255,255,255,0.15)", alignItems: "center", justifyContent: "center", marginRight: 10 },
+  brandIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: "rgba(255,255,255,0.15)",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
   brandText: { color: "#E6EEFF", fontWeight: "900", fontSize: 18 },
   menuList: { marginTop: S * 2, paddingVertical: S * 1.5 },
   itemInner: { height: 50, borderRadius: 18, flexDirection: "row", alignItems: "center", paddingHorizontal: 14 },
@@ -511,9 +538,26 @@ const styles = StyleSheet.create({
   /* Main area */
   main: { flex: 1 },
 
-  topBar: { marginTop: S * 2, marginHorizontal: S * 3, height: 56, borderRadius: 16, backgroundColor: COLORS.white, flexDirection: "row", alignItems: "center", paddingHorizontal: S * 2 },
+  topBar: {
+    marginTop: S * 2,
+    marginHorizontal: S * 3,
+    height: 56,
+    borderRadius: 16,
+    backgroundColor: COLORS.white,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: S * 2,
+  },
   greeting: { color: COLORS.navy, fontWeight: "800", marginRight: S * 2 },
-  searchWrap: { flex: 1, flexDirection: "row", alignItems: "center", backgroundColor: "#F3F5FA", borderRadius: 10, paddingHorizontal: S * 1.5, height: 36 },
+  searchWrap: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F3F5FA",
+    borderRadius: 10,
+    paddingHorizontal: S * 1.5,
+    height: 36,
+  },
   searchInput: { flex: 1, fontSize: 13, color: COLORS.text },
   rightIcons: { flexDirection: "row", alignItems: "center", marginLeft: S * 2 },
   bellWrap: { position: "relative", padding: 6 },
@@ -533,8 +577,30 @@ const styles = StyleSheet.create({
   progressMeta: { position: "absolute", right: 50, top: 0, bottom: 0, flexDirection: "row", alignItems: "center" },
   progressText: { color: "#7a6a24", fontWeight: "700", marginLeft: 6 },
 
-  bubbleLeft: { position: "absolute", top: -10, left: 0, width: 34, height: 34, borderRadius: 20, backgroundColor: COLORS.navyDeep, alignItems: "center", justifyContent: "center", zIndex: 2 },
-  bubbleRight: { position: "absolute", top: -10, right: 0, width: 32, height: 32, borderRadius: 16, backgroundColor: "#FFEBB8", alignItems: "center", justifyContent: "center", zIndex: 2 },
+  bubbleLeft: {
+    position: "absolute",
+    top: -10,
+    left: 0,
+    width: 34,
+    height: 34,
+    borderRadius: 20,
+    backgroundColor: COLORS.navyDeep,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
+  },
+  bubbleRight: {
+    position: "absolute",
+    top: -10,
+    right: 0,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#FFEBB8",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
+  },
   levelBubbleText: { color: "#fff", fontWeight: "700" },
   levelRightBubbleText: { color: "#a87400", fontWeight: "700" },
 
@@ -596,7 +662,7 @@ const styles = StyleSheet.create({
   gamePlaceholder: { height: 160, borderRadius: 12, backgroundColor: "#EFF2FF", borderWidth: 1, borderColor: "#E4E9FF", marginBottom: 12 },
   gameBtns: { flexDirection: "row" },
   btnPrimary: { backgroundColor: COLORS.navy, paddingVertical: 10, paddingHorizontal: 14, borderRadius: 12, marginRight: 18 },
-  btnPrimaryText: { color: "#fff", fontWeight: "800", alignItems: "center" },
+  btnPrimaryText: { color: "#fff", fontWeight: "800" },
 
   // Calendar
   calHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
@@ -610,7 +676,16 @@ const styles = StyleSheet.create({
   calFire: { marginTop: 2, fontSize: 12 },
 
   // Challenges
-  challengeItem: { backgroundColor: "#F6F8FF", borderRadius: 12, padding: 12, borderWidth: 1, borderColor: "#E6EAFF", flexDirection: "row", alignItems: "center", marginBottom: 10 },
+  challengeItem: {
+    backgroundColor: "#F6F8FF",
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: "#E6EAFF",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
   challengeTitle: { fontWeight: "800", color: COLORS.text },
   challengeDesc: { color: "#687089", fontSize: 12, marginTop: 2 },
   challengeDue: { color: "#9aa3b2", fontSize: 11, marginTop: 2 },
@@ -622,17 +697,42 @@ const styles = StyleSheet.create({
   // Badges
   badgeGridWrap: { flexGrow: 1, minHeight: 170, alignItems: "center", justifyContent: "center", width: "100%" },
   badgeGrid: { width: "100%", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" },
-  badge: { width: 64, height: 64, borderRadius: 12, backgroundColor: "#F6F8FF", borderWidth: 1, borderColor: "#E6E8EF", alignItems: "center", justifyContent: "center" },
+  badge: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    backgroundColor: "#F6F8FF",
+    borderWidth: 1,
+    borderColor: "#E6E8EF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   badgeIcon: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center", overflow: "hidden" },
   badgeImg: { width: "100%", height: "100%" },
 
-  seeMore: { alignSelf: "center", paddingVertical: 6, paddingHorizontal: 12, backgroundColor: "#EEF2FF", borderRadius: 12, marginTop: 20, alignItems: "center" },
+  seeMore: {
+    alignSelf: "center",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: "#EEF2FF",
+    borderRadius: 12,
+    marginTop: 20,
+    alignItems: "center",
+  },
   seeMoreText: { color: COLORS.navy, fontWeight: "800", fontSize: 12 },
 
   // Modal
   modalBackdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.2)", alignItems: "center", justifyContent: "center" },
   modalCard: { width: Math.min(W - 40, 420), backgroundColor: COLORS.white, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: "#E6E8EF" },
-  modalBadgeRow: { flexDirection: "row", alignItems: "center", backgroundColor: "#F7F9FF", borderRadius: 12, padding: 12, borderWidth: 1, borderColor: "#E6E8EF" },
+  modalBadgeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F7F9FF",
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: "#E6E8EF",
+  },
   modalBadgeTitle: { fontWeight: "800", color: COLORS.text },
   modalBadgeTier: { fontSize: 12, color: "#6A728A" },
 });
