@@ -29,10 +29,6 @@ export default function LeaderboardForT() {
       {/* Banner */}
       <View style={[styles.banner, styles.shadowMd]}>
         <Text style={styles.bannerTitle}>Leaderboard</Text>
-        <Image
-          source={{ uri: "https://i.ibb.co/9y6w3Kf/confetti.png" }} // optional decoration
-          style={styles.bannerDeco}
-        />
       </View>
 
       {/* Grid of class cards */}
@@ -129,6 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "900",
     marginLeft: 6,
+    textAlign: "center",
   },
   bannerDeco: {
     position: "absolute",

@@ -43,9 +43,8 @@ export default function Dashboard() {
     day: "2-digit",
   });
 
-  // Heights to sync cards
-  const [tasksCardH, setTasksCardH] = useState(0);     // for badges vs daily tasks
-  const [leaderboardH, setLeaderboardH] = useState(0); // for modes vs leaderboard
+  const [tasksCardH, setTasksCardH] = useState(0);
+  const [leaderboardH, setLeaderboardH] = useState(0);
 
   const navigateFromSidebar = (keyOrPath) => {
     if (!keyOrPath) return;
@@ -69,19 +68,15 @@ export default function Dashboard() {
       <Sidebar current="dashboard" onNavigate={navigateFromSidebar} />
 
       <View style={styles.main}>
-        {/* Top row: small pill + search + actions */}
-        <View style={[styles.topRow,styles.shadow]}>
+        {/* Top row */}
+        <View style={[styles.topRow, styles.shadow]}>
           <View style={styles.pillSmall}>
             <Text style={styles.pillSmallText}>Welcome to EdVenture</Text>
           </View>
 
           <View style={styles.searchWrap}>
             <Feather name="search" size={16} color="#9CA3AF" style={{ marginRight: 8 }} />
-            <TextInput
-              placeholder="Search"
-              placeholderTextColor="#9CA3AF"
-              style={styles.searchInput}
-            />
+            <TextInput placeholder="Search" placeholderTextColor="#9CA3AF" style={styles.searchInput} />
           </View>
 
           <View style={styles.actions}>
@@ -105,7 +100,7 @@ export default function Dashboard() {
           contentContainerStyle={{ paddingHorizontal: G, paddingBottom: G * 2 }}
           showsVerticalScrollIndicator={false}
         >
-          {/* Top image ABOVE the banner — replace with your URL */}
+          {/* Thin hero line */}
           <Image
             source={{
               uri:
@@ -115,95 +110,101 @@ export default function Dashboard() {
             style={styles.topHero}
           />
 
-          {/* Welcome banner */}
+          {/* Banner */}
           <LinearGradient
-  colors={["#0F2F66", "#1D3E8A", "#5063D6"]}
-  start={{ x: 0, y: 0 }}
-  end={{ x: 1, y: 0.3 }}
-  style={[styles.banner, styles.shadowLg]}
->
-  <View style={{ flex: 1 }}>
-    <Text style={styles.bannerDate}>{today}</Text>
-    <Text style={styles.bannerTitle}>Welcome back, Salman!</Text>
-    <Text style={styles.bannerSub}>Always stay updated in your student portal</Text>
-  </View>
+            colors={["#0F2F66", "#1D3E8A", "#5063D6"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0.3 }}
+            style={[styles.banner, styles.shadowLg]}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={styles.bannerDate}>{today}</Text>
+              <Text style={styles.bannerTitle}>Welcome back, Salman!</Text>
+              <Text style={styles.bannerSub}>Always stay updated in your student portal</Text>
+            </View>
 
-  {/* Bigger art, positioned and clipped by the banner */}
-  <View style={styles.bannerArtWrap} pointerEvents="none">
-    <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TopBanner" }}
-      resizeMode="contain"
-      style={styles.bannerArt}
-    />
-  </View>
-</LinearGradient>
-
+            <View style={styles.bannerArtWrap} pointerEvents="none">
+              <Image
+                source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TopBanner" }}
+                resizeMode="contain"
+                style={styles.bannerArt}
+              />
+            </View>
+          </LinearGradient>
 
           {/* ===== ROW 1: [Games | Educational]  ||  [Leaderboard] ===== */}
-<View style={styles.gridRow}>
-  {/* LEFT: split row for Games + Educational */}
-  <View style={styles.leftCol}>
-    <View style={styles.leftSplitRow}>
-      {/* Games */}
-      <CardWithHeader title="Games" style={{ flex: 1 }} minH={leaderboardH}>
-        <View style={styles.tileRow}>
-          {/* Game Tile 1 */}
-          <Pressable onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")} style={styles.tileWrap}>
-            <Image
-              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
-              style={styles.tileImg}
-              resizeMode="cover"
-            />
-          </Pressable>
+          <View style={styles.gridRow}>
+            {/* LEFT: Games + Educational */}
+            <View style={styles.leftCol}>
+              <View style={styles.leftSplitRow}>
+                {/* Games */}
+                <CardWithHeader title="Games" style={{ flex: 1 }} minH={leaderboardH}>
+                  <View style={styles.tileRow}>
+                    <Pressable
+                      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")}
+                      style={styles.tileWrap}
+                    >
+                      <Image
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
+                        style={styles.tileImg}
+                        resizeMode="cover"
+                      />
+                    </Pressable>
 
-          {/* Game Tile 2 */}
-          <Pressable onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")} style={styles.tileWrap}>
-            <Image
-              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
-              style={styles.tileImg}
-              resizeMode="cover"
-            />
-          </Pressable>
-        </View>
-        <View style={styles.tileLabelsRow}>
-          <Text style={styles.tileLabel}>Thumbs</Text>
-          <Text style={styles.tileLabel}>Count & Run </Text>
-        </View>
-      </CardWithHeader>
+                    <Pressable
+                      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")}
+                      style={styles.tileWrap}
+                    >
+                      <Image
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
+                        style={styles.tileImg}
+                        resizeMode="cover"
+                      />
+                    </Pressable>
+                  </View>
 
-      {/* Educational */}
-      <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
-        <View style={styles.tileRow}>
-          <Pressable onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")} >
-            <Image
-              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
-              style={styles.tileImg}
-              resizeMode="cover"
-            />
-          </Pressable>
-        </View>
-        <View style={styles.tileLabelsRow}>
-          <Text style={styles.tileLabel}>Educational</Text>
-        </View>
-      </CardWithHeader>
-    </View>
-  </View>
+                  <View style={styles.tileLabelsRow}>
+                    <Text style={styles.tileLabel}>Thumbs</Text>
+                    <Text style={styles.tileLabel}>Count & Run</Text>
+                  </View>
+                </CardWithHeader>
 
-  {/* RIGHT: Leaderboard (measure height) */}
-  <View style={styles.rightCol}>
-    <View onLayout={(e) => setLeaderboardH(e.nativeEvent.layout.height)}>
-      <CardWithHeader title="Leaderboard" compact>
-        <View style={styles.leaderboard}>
-          <Podium place={2} name="Maher" points={640} />
-          <Podium place={1} name="Salman" points={660} big />
-          <Podium place={3} name="Mosab" points={600} />
-        </View>
-      </CardWithHeader>
-    </View>
-  </View>
-</View>
+                {/* Educational */}
+                <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
+                  <View style={styles.tileRow}>
+                    <Pressable
+                      onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")}
+                      style={styles.tileWrap}
+                    >
+                      <Image
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
+                        style={styles.tileImg}
+                        resizeMode="cover"
+                      />
+                    </Pressable>
+                  </View>
+                  <View style={styles.tileLabelsRow}>
+                    <Text style={styles.tileLabel}>Educational</Text>
+                  </View>
+                </CardWithHeader>
+              </View>
+            </View>
 
-          {/* ===== ROW 2 CONTENT: [Badges] || [Daily Tasks] ===== */}
+            {/* RIGHT: Leaderboard */}
+            <View style={styles.rightCol}>
+              <View onLayout={(e) => setLeaderboardH(e.nativeEvent.layout.height)}>
+                <CardWithHeader title="Leaderboard" compact>
+                  <View style={styles.leaderboard}>
+                    <Podium place={2} name="Maher" points={640} />
+                    <Podium place={1} name="Salman" points={660} big />
+                    <Podium place={3} name="Mosab" points={600} />
+                  </View>
+                </CardWithHeader>
+              </View>
+            </View>
+          </View>
+
+          {/* ===== ROW 2: [Badges] || [Daily Tasks] ===== */}
           <View style={[styles.gridRow, { alignItems: "stretch" }]}>
             {/* LEFT: badges */}
             <View style={styles.leftCol}>
@@ -229,28 +230,16 @@ export default function Dashboard() {
               </View>
             </View>
 
-            {/* RIGHT: daily tasks (measured) */}
+            {/* RIGHT: daily tasks */}
             <View style={styles.rightCol}>
               <View
                 style={[styles.card, styles.shadow]}
                 onLayout={(e) => setTasksCardH(e.nativeEvent.layout.height)}
               >
                 <View style={[styles.cardBody, { paddingTop: S, paddingBottom: S }]}>
-                  <Task
-                    title="One Learning Track"
-                    text="Algebra Assessment"
-                  />
-                  <View
-                    style={{
-                      height: 1,
-                      backgroundColor: COLORS.border,
-                      marginVertical: S * 1.25,
-                    }}
-                  />
-                  <Task
-                    title="One Learning Track"
-                    text="Geometry Assessment"
-                  />
+                  <Task title="One Learning Track" text="Algebra Assessment" />
+                  <View style={{ height: 1, backgroundColor: COLORS.border, marginVertical: S * 1.25 }} />
+                  <Task title="One Learning Track" text="Geometry Assessment" />
                 </View>
               </View>
             </View>
@@ -262,59 +251,43 @@ export default function Dashboard() {
 }
 
 /* ---------- SIDEBAR ---------- */
-
 const Sidebar = ({ current = "dashboard", onNavigate }) => {
-  // Inline item so it's never "missing"
-  // Inline item so it's never "missing"
-// Inline item so it's never "missing"
-const Item = ({ icon, label, to, active }) => (
-  <Pressable
-    onPress={() => onNavigate?.(to)}
-    style={{ paddingHorizontal: S * 2, paddingVertical: 2 }}
-  >
-    <View style={[styles.itemInner, active && styles.itemActive]}>
-      <Ionicons
-        name={icon}
-        size={18}
-        color={active ? COLORS.navy : "#E6ECFF"}
-        style={{ marginRight: 12 }}
-      />
-      <Text
-        style={[styles.itemText, active && styles.itemTextActive]}
-        numberOfLines={2}                // allow two lines
-      >
-        {label}
-      </Text>
-    </View>
-  </Pressable>
-);
-
-
+  const Item = ({ icon, label, to, active }) => (
+    <Pressable onPress={() => onNavigate?.(to)} style={{ paddingHorizontal: S * 2, paddingVertical: 2 }}>
+      <View style={[styles.itemInner, active && styles.itemActive]}>
+        <Ionicons
+          name={icon}
+          size={18}
+          color={active ? COLORS.navy : "#E6ECFF"}
+          style={{ marginRight: 12 }}
+        />
+        <Text style={[styles.itemText, active && styles.itemTextActive]} numberOfLines={2}>
+          {label}
+        </Text>
+      </View>
+    </Pressable>
+  );
 
   return (
     <View style={styles.sidebar}>
-      {/* Brand */}
       <View style={styles.brand}>
-  <View style={styles.brandIcon}>
-    <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo" }}
-      style={styles.brandIconImg}   // <- will add this style below
-    />
-  </View>
-  <Text style={styles.brandText}>EdVenture</Text>
-</View>
-
-
-      {/* Menu */}
-      <View style={styles.menuList}>
-        <Item icon="grid-outline"            label="Dashboard"        to="dashboard"   active={current==="dashboard"} />
-        <Item icon="school-outline"          label={"Educational \nMode"}  to="edu"         active={current==="edu"} />
-        <Item icon="game-controller-outline" label="Games Mode"       to="games"       active={current==="games"} />
-        <Item icon="trophy-outline"          label="Leaderboard"      to="leaderboard" active={current==="leaderboard"} />
-        <Item icon="settings-outline"        label="Settings"         to="settings"    active={current==="settings"} />
+        <View style={styles.brandIcon}>
+          <Image
+            source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo" }}
+            style={styles.brandIconImg}
+          />
+        </View>
+        <Text style={styles.brandText}>EdVenture</Text>
       </View>
 
-      {/* Join Quiz card */}
+      <View style={styles.menuList}>
+        <Item icon="grid-outline" label="Dashboard" to="dashboard" active={current === "dashboard"} />
+        <Item icon="school-outline" label={"Educational \nMode"} to="edu" active={current === "edu"} />
+        <Item icon="game-controller-outline" label="Games Mode" to="games" active={current === "games"} />
+        <Item icon="trophy-outline" label="Leaderboard" to="leaderboard" active={current === "leaderboard"} />
+        <Item icon="settings-outline" label="Settings" to="settings" active={current === "settings"} />
+      </View>
+
       <View style={styles.joinWrap}>
         <Pressable style={[styles.joinCard, styles.shadow]} onPress={() => onNavigate?.("quiz")}>
           <View style={styles.plusBox}>
@@ -339,15 +312,9 @@ function CardWithHeader({ title, children, ctaText = "More", compact = false, st
           </Pressable>
         ) : null}
       </View>
-      <View style={[styles.cardBody, compact && { paddingTop: S, paddingBottom: S }]}>
-        {children}
-      </View>
+      <View style={[styles.cardBody, compact && { paddingTop: S, paddingBottom: S }]}>{children}</View>
     </View>
   );
-}
-
-function Tile() {
-  return <View style={styles.tile} />;
 }
 
 function Podium({ place, name, big, points }) {
@@ -403,42 +370,24 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: COLORS.white,
     padding: G,
-    minHeight: BANNER_MIN_HEIGHT,   // keep content-safe
+    minHeight: BANNER_MIN_HEIGHT,
   },
-  // shadows (web-safe)
+
   shadow: Platform.select({
-    ios: {
-      shadowColor: "#000",
-      shadowOpacity: 0.08,
-      shadowOffset: { width: 0, height: 8 },
-      shadowRadius: 18,
-    },
+    ios: { shadowColor: "#000", shadowOpacity: 0.08, shadowOffset: { width: 0, height: 8 }, shadowRadius: 18 },
     android: { elevation: 6 },
     default: { boxShadow: "0 8px 18px rgba(0,0,0,0.08)" },
   }),
   shadowLg: Platform.select({
-    ios: {
-      shadowColor: "#000",
-      shadowOpacity: 0.12,
-      shadowOffset: { width: 0, height: 12 },
-      shadowRadius: 22,
-    },
+    ios: { shadowColor: "#000", shadowOpacity: 0.12, shadowOffset: { width: 0, height: 12 }, shadowRadius: 22 },
     android: { elevation: 8 },
     default: { boxShadow: "0 12px 22px rgba(0,0,0,0.12)" },
   }),
 
   root: { flex: 1, backgroundColor: COLORS.page, flexDirection: "row" },
 
-  /* ---- Sidebar ---- */
+  /* Sidebar */
   sidebar: {
-    width: SIDEBAR_W,
-    backgroundColor: COLORS.navy,
-    position: "relative",
-    paddingTop: S * 3,
-    paddingBottom: S * 3,
-  },
-  // keep a duplicate name if other files referenced it before
-  sidebarSolid: {
     width: SIDEBAR_W,
     backgroundColor: COLORS.navy,
     position: "relative",
@@ -452,77 +401,24 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "rgba(255,255,255,0.15)",
     marginRight: 10,
-    alignItems: "center",      // center the logo
-    justifyContent: "center",  // center the logo
+    alignItems: "center",
+    justifyContent: "center",
   },
-  brandIconImg: {
-    width: 24,    // was 22
-    height: 24,   // was 22
-    resizeMode: "contain",
-  },
-  
+  brandIconImg: { width: 24, height: 24, resizeMode: "contain" },
   brandText: { color: "#E6EEFF", fontWeight: "900", fontSize: 18 },
   menuList: { marginTop: S * 2, paddingVertical: S * 1.5 },
 
-  joinWrap: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: S * 3,
-    alignItems: "center",
-  },
-  tileImg: {
-    width: 120,         // adjust size as needed
-    height: 100,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#E4E9FF",
-    marginHorizontal: 6,
-  },
-  tileWrap: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-  // keep old name too, in case something else imports it
-  joinWrapSolid: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: S * 3,
-    alignItems: "center",
-  },
-  joinCard: {
-    width: 190,
-    backgroundColor: COLORS.white,
-    borderRadius: 22,
-    paddingVertical: S * 2.5,
-    alignItems: "center",
-  },
-  plusBox: {
-    width: 72,
-    height: 72,
-    borderRadius: 16,
-    backgroundColor: COLORS.badge,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: S,
-  },
+  joinWrap: { position: "absolute", left: 0, right: 0, bottom: S * 3, alignItems: "center" },
+  joinCard: { width: 190, backgroundColor: COLORS.white, borderRadius: 22, paddingVertical: S * 2.5, alignItems: "center" },
+  plusBox: { width: 72, height: 72, borderRadius: 16, backgroundColor: COLORS.badge, alignItems: "center", justifyContent: "center", marginBottom: S },
   joinText: { color: COLORS.navy, fontWeight: "900", fontSize: 18 },
 
-  itemInner: {
-   // height: 50,
-    minHeight: 50,    
-    borderRadius: 18,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 14,
-  },
+  itemInner: { minHeight: 50, borderRadius: 18, flexDirection: "row", alignItems: "center", paddingHorizontal: 14 },
   itemActive: { backgroundColor: COLORS.white },
   itemText: { color: "#E6ECFF", fontSize: 16, fontWeight: "800" },
   itemTextActive: { color: COLORS.navy },
 
-  /* ---- Main ---- */
+  /* Main */
   main: { flex: 1 },
 
   topRow: {
@@ -535,13 +431,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: S * 2,
   },
-  pillSmall: {
-    backgroundColor: COLORS.white,
-    paddingHorizontal: S * 2,
-    paddingVertical: S,
-    borderRadius: 12,
-    marginRight: S * 2,
-  },
+  pillSmall: { backgroundColor: COLORS.white, paddingHorizontal: S * 2, paddingVertical: S, borderRadius: 12, marginRight: S * 2 },
   pillSmallText: { color: COLORS.navy, fontWeight: "800" },
 
   searchWrap: {
@@ -556,24 +446,8 @@ const styles = StyleSheet.create({
   searchInput: { flex: 1, fontSize: 13, color: COLORS.text },
   actions: { flexDirection: "row", alignItems: "center", gap: S * 2, marginLeft: S * 2 },
   bellWrap: { position: "relative", padding: 6 },
-  dot: {
-    position: "absolute",
-    top: 6,
-    right: 6,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#3B82F6",
-  },
-  avatarWrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    backgroundColor: "#F3F5FA",
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    height: 36,
-  },
+  dot: { position: "absolute", top: 6, right: 6, width: 8, height: 8, borderRadius: 4, backgroundColor: "#3B82F6" },
+  avatarWrap: { flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: "#F3F5FA", borderRadius: 999, paddingHorizontal: 8, height: 36 },
   avatar: { width: 24, height: 24, borderRadius: 12 },
 
   topHero: { width: "100%", height: 20, borderRadius: 16 },
@@ -581,30 +455,21 @@ const styles = StyleSheet.create({
   banner: {
     borderRadius: 18,
     padding: G,
-    paddingRight: 220,      // reserve space for the big art on the right
+    paddingRight: 220,
     minHeight: 120,
     flexDirection: "row",
     alignItems: "center",
-    overflow: "hidden",     // keeps the larger art neatly clipped to the banner
+    overflow: "hidden",
   },
-  bannerArtWrap: {
-    position: "absolute",
-    right: 12,
-    width: 240,             // bigger than before
-    height: 180,            // taller than the banner; gets clipped for a bold look
-  },
+  bannerArtWrap: { position: "absolute", right: 12, width: 240, height: 180 },
   bannerDate: { color: "#C7D2FE", fontSize: 11, marginBottom: 6 },
   bannerTitle: { color: COLORS.white, fontSize: 28, fontWeight: "900" },
   bannerSub: { color: "#E5EAFD", marginTop: 6 },
-  bannerArt: {
-    width: "100%",
-    height: "100%",
-  },
+  bannerArt: { width: "100%", height: "100%" },
 
   gridRow: { flexDirection: "row", marginTop: G, gap: G, flexWrap: "wrap" },
   leftCol: { flexBasis: width > 1100 ? "66%" : "100%", flexGrow: 1, gap: G },
   rightCol: { flexBasis: width > 1100 ? "32%" : "100%", gap: G },
-
   leftSplitRow: { flexDirection: "row", gap: G, alignItems: "stretch" },
 
   card: { backgroundColor: COLORS.white, borderRadius: 16, overflow: "hidden" },
@@ -617,67 +482,49 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardTitle: { color: COLORS.navy, fontWeight: "900", fontSize: 16 },
-  moreBtn: {
-    backgroundColor: COLORS.navy,
-    paddingHorizontal: S * 2,
-    paddingVertical: S * 0.8,
-    borderRadius: 999,
-  },
+  moreBtn: { backgroundColor: COLORS.navy, paddingHorizontal: S * 2, paddingVertical: S * 0.8, borderRadius: 999 },
   moreText: { color: COLORS.white, fontWeight: "800", fontSize: 12 },
   cardBody: { padding: G, flexGrow: 1 },
 
-  tileRow: { flexDirection: "row", gap: G,  alignItems: "center",  },
-  tile: { flex: 1, height: 110, borderRadius: 16, backgroundColor: "#ECEFF6" },
-  tileLabelsRow: { marginTop: S, flexDirection: "row", gap: G },
-  tileLabel: {
-    flex: 1,
-    textAlign: "center",
-    color: COLORS.subtext,
-    fontWeight: "700",
-    fontSize: 11,
-  },
-
-  leaderboard: {
+  /* >>> ROOMIER TILE GRID <<< */
+  tileRow: {
     flexDirection: "row",
-    alignItems: "flex-end",
+    gap: G,
+    alignItems: "center",
     justifyContent: "space-between",
-    gap: 12,
-    paddingTop: S,
+    paddingVertical: S * 2,
+    paddingHorizontal: S,
   },
+  tileWrap: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F8FAFF",
+    borderWidth: 1,
+    borderColor: "#E6ECFF",
+    borderRadius: 16,
+    minWidth: 140,
+    minHeight: 130,      // consistent box height
+  },
+  tileImg: {
+    width: 200,          // slightly smaller so padding is visible
+    height: 110,
+    borderRadius: 12,
+    resizeMode: "cover",
+  },
+  tileLabelsRow: { marginTop: S * 1.5, flexDirection: "row", gap: G },
+  tileLabel: { flex: 1, textAlign: "center", color: COLORS.subtext, fontWeight: "700", fontSize: 11 },
+
+  /* Leaderboard */
+  leaderboard: { flexDirection: "row", alignItems: "flex-end", justifyContent: "space-between", gap: 12, paddingTop: S },
   podiumCol: { flex: 1, alignItems: "center" },
-  podiumAvatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginBottom: 6,
-    borderWidth: 2,
-    borderColor: COLORS.white,
-  },
+  podiumAvatar: { width: 40, height: 40, borderRadius: 20, marginBottom: 6, borderWidth: 2, borderColor: COLORS.white },
   podiumName: { fontSize: 12, color: COLORS.subtext, marginBottom: 2 },
   podiumPoints: { fontSize: 12, fontWeight: "700", color: COLORS.navy, marginBottom: 8 },
-  podiumBar: {
-    width: "85%",
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    paddingBottom: 10,
-  },
+  podiumBar: { width: "85%", borderTopLeftRadius: 12, borderTopRightRadius: 12, alignItems: "center", justifyContent: "flex-end", paddingBottom: 10 },
   podiumNum: { color: COLORS.white, fontSize: 20, fontWeight: "900" },
 
-  /* Row 2 headings */
-  h2: { color: COLORS.navy, fontWeight: "900", fontSize: 18 },
-  headerRightRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  headerLink: {
-    color: COLORS.white,
-    fontWeight: "900",
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: COLORS.navy,
-    borderRadius: 999,
-  },
-
-  /* Badges horizontal */
+  /* Row 2 */
   badgesRow: { flexDirection: "row", gap: G },
   badgeCard: { flex: 1, backgroundColor: COLORS.white, borderRadius: 18, padding: G },
   badgeInner: { flex: 1, justifyContent: "space-between", alignItems: "center" },
@@ -691,3 +538,4 @@ const styles = StyleSheet.create({
   taskText: { color: COLORS.subtext, fontSize: 12, lineHeight: 16 },
   taskLink: { color: COLORS.blue, fontWeight: "800", marginTop: 6 },
 });
+

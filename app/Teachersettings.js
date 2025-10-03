@@ -14,11 +14,11 @@ export default function Settings() {
           {/* User Details */}
           <Text style={styles.sectionTitle}>Details</Text>
           <View style={styles.row}>
-            <TextInput style={styles.input} placeholder="First Name" value="Salman" />
+            <TextInput style={styles.input} placeholder="First Name" value="Rakan" />
             <TextInput style={styles.input} placeholder="Last Name" value="Alharbi" />
           </View>
           <View style={styles.row}>
-            <TextInput style={styles.input} placeholder="Email" value="Salman.Al@gmail.com" />
+            <TextInput style={styles.input} placeholder="Email" value="Rakan.Al@gmail.com" />
             <TextInput style={styles.input} placeholder="Phone Number" value="+966 50XXXXXXX" />
           </View>
 

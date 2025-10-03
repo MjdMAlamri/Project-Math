@@ -18,6 +18,7 @@ import { useRouter, Link } from "expo-router";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { Linking } from "react-native";
 
+
 /* -------------------- Design Tokens -------------------- */
 const S = 8;
 const SIDEBAR_W = 220;
@@ -281,7 +282,7 @@ export default function GamesModeScreen() {
     <View style={styles.gameBtns}>
       <Pressable
         style={styles.btnPrimary}
-        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/#/thumbs")}
       >
         <Text style={styles.btnPrimaryText}>Play</Text>
       </Pressable>
@@ -299,7 +300,7 @@ export default function GamesModeScreen() {
     <View style={styles.gameBtns}>
       <Pressable
         style={styles.btnPrimary}
-        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/#/numbers")}
       >
         <Text style={styles.btnPrimaryText}>Play</Text>
       </Pressable>

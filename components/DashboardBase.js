@@ -94,7 +94,7 @@ export default function DashboardBase({ children, contentContainerStyle }) {
       <View style={styles.main}>
         {/* Top bar */}
         <View style={[styles.topBar, shadow]}>
-          <Text style={styles.greeting}>Good morning, Salman</Text>
+          <Text style={styles.greeting}>Good morning, Rakan</Text>
 
           <View style={styles.searchWrap}>
             <Feather name="search" size={16} color="#9CA3AF" style={{ marginRight: 8 }} />

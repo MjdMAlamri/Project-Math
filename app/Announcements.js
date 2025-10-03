@@ -23,10 +23,6 @@ export default function Announcements() {
         <View style={styles.bannerCenter}>
           <Text style={styles.bannerTitle}>Send Announcements to Your Students</Text>
         </View>
-        <Image
-          source={{ uri: "https://i.ibb.co/DV7pYjQ/student.png" }}
-          style={styles.bannerMascot}
-        />
       </View>
 
       {/* Dropdown */}

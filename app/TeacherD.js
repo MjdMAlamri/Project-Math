@@ -1,7 +1,8 @@
 // app/dashboard.js
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"; // or react-native-linear-gradient
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";             // <- added
 import DashboardBase from "../components/DashboardBase";
 
 const COLORS = {
@@ -25,7 +26,6 @@ export default function Dashboard() {
         end={{ x: 1, y: 0.3 }}
         style={[styles.banner, styles.shadowLg]}
       >
-        {/* Text block leaves room for the large person */}
         <View style={{ flex: 1, paddingRight: 140 }}>
           <Text style={styles.bannerDate}>September 23, 2025</Text>
           <Text style={styles.bannerTitle}>Welcome back, Rakan!</Text>
@@ -36,24 +36,26 @@ export default function Dashboard() {
 
         {/* Big person image, absolutely positioned, clipped by banner */}
         <Image
-          source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/T-img2" }}
+          source={{
+            uri: "https://github.com/MjdMAlamri/Images/blob/main/ChatGPT%20Image%20Oct%204,%202025%20at%2012_38_30%20AM.png?raw=true",
+          }}
           style={styles.bannerMascot}
         />
       </LinearGradient>
 
       {/* Top row: 3 stats + events */}
       <View style={styles.row}>
-        <StatCard value="534" label="Equations Solved" />
-        <StatCard value="500" label="Correct Solutions" />
-        <StatCard value="3 min" label="Per question" />
+        <StatCard icon="calculator-outline" iconColor="#2563EB" value="534" label="Equations Solved" />
+        <StatCard icon="checkmark-circle-outline" iconColor="#16a34a" value="500" label="Correct Solutions" />
+        <StatCard icon="bar-chart-outline" iconColor="#f59e0b" value="3 min" label="Per Question" />
         <EventCard />
       </View>
 
       {/* Second row */}
       <View style={styles.row}>
-        {/* Today’s Status */}
-        <View style={[styles.card, styles.flex2]}>
-          <Text style={styles.sectionTitle}>Today's Status</Text>
+        {/* Today’s Status (more breathable) */}
+        <View style={[styles.card, styles.flex2, styles.spaciousCard]}>
+          <Text style={[styles.sectionTitle, styles.sectionTitleSpaced]}>Today's Status</Text>
 
           <View style={styles.miniRow}>
             <StatMini value="120" label="Equations Attempted" />
@@ -61,17 +63,17 @@ export default function Dashboard() {
             <StatMini value="90" label="Time Practiced (min)" />
           </View>
 
-          <View style={styles.todaysStatusStrip}>
+          <View style={[styles.todaysStatusStrip, { marginTop: 10 }]}>
             <Text style={styles.todaysStatusText}>Today’s status:</Text>
             <Text style={styles.badgeSuccess}>Very good</Text>
           </View>
         </View>
 
-        {/* Classes Performance */}
-        <View style={[styles.card, styles.flex1]}>
-          <Text style={styles.sectionTitle}>Classes Performance</Text>
+        {/* Classes Performance (more breathable + taller chart) */}
+        <View style={[styles.card, styles.flex1, styles.spaciousCard]}>
+          <Text style={[styles.sectionTitle, styles.sectionTitleSpaced]}>Classes Performance</Text>
 
-          <View style={styles.legendRow}>
+          <View style={[styles.legendRow, { marginBottom: 14 }]}>
             <LegendDot color="#EB5757" />
             <Text style={styles.legendText}>Class 1</Text>
             <LegendDot color="#2B6DE8" />
@@ -101,6 +103,10 @@ export default function Dashboard() {
             title="MathX"
             text="Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
           />
+          <TaskCard
+            title="MathX"
+            text="Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+          />
         </View>
       </View>
     </DashboardBase>
@@ -109,11 +115,11 @@ export default function Dashboard() {
 
 /* ───── Components ───── */
 
-function StatCard({ value, label }) {
+function StatCard({ value, label, icon = "analytics-outline", iconColor = COLORS.primary }) {
   return (
     <View style={[styles.card, styles.center]}>
       <View style={styles.iconTile}>
-        <View style={styles.iconTileInner} />
+        <Ionicons name={icon} size={28} color={iconColor} />
       </View>
       <Text style={styles.statValue}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
@@ -181,20 +187,19 @@ const styles = StyleSheet.create({
 
   /* Banner */
   banner: {
-    height: 128,              // fixed height (won’t grow)
+    height: 128,
     borderRadius: 22,
     paddingVertical: 22,
     paddingHorizontal: 24,
     marginBottom: 28,
     position: "relative",
-    overflow: "hidden",       // clips the large mascot inside the banner
+    overflow: "hidden",
   },
-  // Bigger person without changing banner size
   bannerMascot: {
     position: "absolute",
     right: 80,
-    bottom: -20,               // tuck slightly below to feel larger
-    width: 240,               // increase size here
+    bottom: -30,
+    width: 240,
     height: 190,
     resizeMode: "contain",
     pointerEvents: "none",
@@ -226,6 +231,16 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 
+  /* Extra breathing room for specific sections */
+  spaciousCard: {
+    paddingVertical: 26,         // more inner space
+    paddingHorizontal: 22,
+    marginBottom: 6,             // slight extra spacing from next section
+  },
+  sectionTitleSpaced: {
+    marginBottom: 12,            // space under title
+  },
+
   /* Stat cards */
   iconTile: {
     width: 68,
@@ -236,12 +251,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  iconTileInner: {
-    width: 38,
-    height: 38,
-    borderRadius: 10,
-    backgroundColor: COLORS.primary,
-  },
   statValue: { fontSize: 22, fontWeight: "800", color: COLORS.text },
   statLabel: {
     fontSize: 12,
@@ -251,16 +260,24 @@ const styles = StyleSheet.create({
   },
 
   /* Mini stats (Today’s Status) */
-  miniRow: { flexDirection: "row", gap: 14, marginTop: 6, marginBottom: 16 },
+  miniRow: {
+    flexDirection: "row",
+    gap: 16,                    // more space between mini cards
+    marginTop: 8,
+    marginBottom: 18,           // more breathing room above the strip
+    width: 750,
+    height: 150,
+  },
   statMini: {
     flex: 1,
     backgroundColor: COLORS.card,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 14,
-    paddingVertical: 16,
+    paddingVertical: 18,
     paddingHorizontal: 14,
     alignItems: "center",
+    justifyContent: "center",    // center content vertically
   },
   statMiniValue: { fontSize: 18, fontWeight: "800", color: COLORS.text },
   statMiniLabel: { fontSize: 11, color: COLORS.sub, textAlign: "center", marginTop: 4 },
@@ -269,8 +286,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 14,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
+    paddingVertical: 16,        // taller strip
+    paddingHorizontal: 16,
     backgroundColor: "#F9FAFB",
     borderWidth: 1,
     borderColor: COLORS.border,
@@ -295,7 +312,12 @@ const styles = StyleSheet.create({
   },
   legendDot: { width: 8, height: 8, borderRadius: 4 },
   legendText: { fontSize: 11, color: COLORS.sub, marginRight: 10 },
-  chart: { width: "100%", height: 140, resizeMode: "contain" },
+  chart: {
+    width: "100%",
+    height: 170,                // taller chart for breathing space
+    resizeMode: "contain",
+    marginTop: 2,
+  },
 
   /* Events */
   eventItem: {

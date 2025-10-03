@@ -43,13 +43,12 @@ export default function Classes() {
   );
 }
 
-/* --- Styles --- */
 const styles = StyleSheet.create({
   /* Banner */
   banner: {
     backgroundColor: COLORS.card,
     borderRadius: 18,
-    height: 126,               // fixed height like the mock
+    height: 126,
     paddingHorizontal: 24,
     marginBottom: G,
     position: "relative",
@@ -65,23 +64,18 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     color: COLORS.text,
   },
-  bannerMascot: {
-    position: "absolute",
-    right: 12,
-    bottom: -6,
-    width: 150,                // bigger person without changing banner height
-    height: 150,
-    resizeMode: "contain",
-  },
+
+  /* Grid */
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",   // center items horizontally
+    gap: G,                      // spacing between cards
   },
-  
+
   classCard: {
-    width: "200%",             // 2 cards per row
-    minHeight: 300,
+    width: "100%",                // ~2 per row with gap
+    minHeight: 160,
     backgroundColor: COLORS.card,
     borderRadius: 18,
     borderWidth: 1,
@@ -90,10 +84,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: G,          // spacing between rows
+    justifyContent: "flex-start",
   },
-  
-  
+
   iconTile: {
     width: 64,
     height: 64,

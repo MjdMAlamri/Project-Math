@@ -2,6 +2,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable, Platform } from "react-native";
 import DashboardBase from "../components/DashboardBase";
+import { Link } from "expo-router";
+
 
 const COLORS = {
   bg: "#F5F7FD",
@@ -20,16 +22,19 @@ export default function JoinQuiz() {
   return (
     <DashboardBase contentContainerStyle={{ padding: G, backgroundColor: COLORS.bg }}>
       <View style={styles.row}>
-        {/* LEFT: centered create card */}
-        <View style={styles.leftArea}>
-          <Pressable style={[styles.createCard, styles.shadowMd]}>
-            <Text style={styles.createTitle}>Create a new quiz</Text>
-            <Image
-              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TargetImg" }}
-              style={styles.createImg}
-            />
-          </Pressable>
-        </View>
+       {/* LEFT: centered create card */}
+<View style={styles.leftArea}>
+  <Link href="/CreateQuiz" asChild>
+    <Pressable style={styles.createCard}>
+      <Text style={styles.createTitle}>Create a new quiz</Text>
+      <Image
+        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TargetImg" }}
+        style={styles.createImg}
+      />
+    </Pressable>
+  </Link>
+</View>
+
 
         {/* RIGHT: full-height history */}
         <View style={[styles.historyCard, styles.shadowSm]}>

@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Pressable,
+  Linking,
   Dimensions,
   Platform,
 } from "react-native";
@@ -91,10 +92,11 @@ export default function HomeScreen() {
             <Pressable style={styles.navItem} onPress={scrollToAbout}>
               <Text style={styles.navText}>About</Text>
             </Pressable>
-            <Pressable style={styles.navItem}>
+            <Pressable style={styles.navItem} onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}>
               <Text style={styles.navText}>Contact us</Text>
             </Pressable>
           </View>
+
 
           <View style={styles.authRow}>
             <Link href="/Login" asChild>
@@ -120,21 +122,21 @@ export default function HomeScreen() {
             </Text>
 
             <View style={{ flexDirection: "row", gap: S }}>
-              <Pressable style={[styles.cta, styles.ctaPrimary, { marginTop: S * 3 }]}>
-                <Text style={styles.ctaPrimaryText}>Get Started</Text>
-              </Pressable>
+            <Link href="/Login" asChild>
+  <Pressable style={ styles.cta}>
+    <Text style={styles.ctaPrimaryText}>Get Started</Text>
+  </Pressable>
+</Link> 
             </View>
           </View>
-
           <View style={styles.heroRight}>
             <View style={styles.illoCard}>
-              <Image
-                source={{
-                  uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/HomePageImg",
-                }}
-                style={styles.illoImg}
-                resizeMode="contain"
-              />
+            <Image
+  source={require("../assets/images/Homepageimg.png")}
+  style={styles.illoImg}
+  resizeMode="contain"
+/>
+
               <View style={[styles.star, { top: -10, right: -10 }]} />
               <View style={[styles.star, { bottom: -10, left: -10 }]} />
             </View>
@@ -224,12 +226,15 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.aboutCtas}>
-              <Pressable style={styles.btnPrimaryFill}>
+              <Pressable style={styles.btnPrimaryFill} onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}>
                 <Text style={styles.btnPrimaryFillTxt}>More About Us</Text>
               </Pressable>
-              <Pressable style={styles.btnOutline}>
-                <Text style={styles.btnOutlineTxt}>Contact Us</Text>
-              </Pressable>
+              <Pressable
+  style={styles.btnOutline}
+  onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}
+>
+  <Text style={styles.btnOutlineTxt}>Contact Us</Text>
+</Pressable>
             </View>
           </View>
 
@@ -462,8 +467,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
+    backgroundColor: COLORS.white
   },
-  ctaPrimary: { backgroundColor: COLORS.white },
+ // ctaPrimary: { backgroundColor: COLORS.white },
   ctaPrimaryText: {
     color: COLORS.navy,
     fontWeight: "900",
@@ -483,6 +489,7 @@ const styles = StyleSheet.create({
     width: Math.min(width - G * 2 - S * 3, 740),
     height: Math.min(width * 0.55, 540),
     borderRadius: 18,
+    marginLeft: S+25,
     alignItems: "center",
     justifyContent: "center",
     ...shadow,
