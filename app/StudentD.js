@@ -159,7 +159,7 @@ export default function Dashboard() {
           {/* Game Tile 2 */}
           <Pressable onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")} style={styles.tileWrap}>
             <Image
-              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game1" }}
+              source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
               style={styles.tileImg}
               resizeMode="cover"
             />
@@ -167,7 +167,7 @@ export default function Dashboard() {
         </View>
         <View style={styles.tileLabelsRow}>
           <Text style={styles.tileLabel}>Thumbs</Text>
-          <Text style={styles.tileLabel}>Numbers</Text>
+          <Text style={styles.tileLabel}>Count & Run </Text>
         </View>
       </CardWithHeader>
 

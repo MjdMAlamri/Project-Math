@@ -290,9 +290,9 @@ export default function GamesModeScreen() {
 
   {/* Game 2 */}
   <View style={[styles.cardWide, { marginRight: 18 }]}>
-    <Text style={styles.cardTitle}>Game 2</Text>
+    <Text style={styles.cardTitle}>Count & Run</Text>
     <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game1" }}
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
       style={styles.gameImg}
       resizeMode="cover"
     />
