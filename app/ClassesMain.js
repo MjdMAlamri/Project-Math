@@ -30,7 +30,7 @@ export default function Classes() {
       <View style={StyleSheet.flatten([styles.grid])}>
 
         {/* Class 1 */}
-        <Link href="/ClassesPage/1" asChild>
+        <Link href="/ClassesPage" asChild>
           <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
             <View style={styles.iconTile}>
               <View style={styles.iconInner} />
@@ -40,7 +40,7 @@ export default function Classes() {
         </Link>
 
         {/* Class 2 */}
-        <Link href="/ClassesPage/2" asChild>
+        <Link href="/ClassesPage" asChild>
           <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
             <View style={styles.iconTile}>
               <View style={styles.iconInner} />
@@ -50,7 +50,7 @@ export default function Classes() {
         </Link>
 
         {/* Class 3 */}
-        <Link href="/ClassesPage/3" asChild>
+        <Link href="/ClassesPage" asChild>
           <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
             <View style={styles.iconTile}>
               <View style={styles.iconInner} />
@@ -60,7 +60,7 @@ export default function Classes() {
         </Link>
 
         {/* Class 4 */}
-        <Link href="/ClassesPage/4" asChild>
+        <Link href="/ClassesPage" asChild>
           <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
             <View style={styles.iconTile}>
               <View style={styles.iconInner} />
