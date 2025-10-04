@@ -1,10 +1,9 @@
 [build]
-  command = "npx expo export --platform web"
-  publish = ".expo/output/web" # or "dist" depending on your Expo version
+  command = "npm run build:web"
+  publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NODE_ENV = "production"
+  NODE_VERSION = "20"   # Netlify's Node; Expo works well on 18/20
 
 [[redirects]]
   from = "/*"
