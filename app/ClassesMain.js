@@ -28,17 +28,48 @@ export default function Classes() {
       </View>
 
       <View style={StyleSheet.flatten([styles.grid])}>
-  {["Class 1", "Class 2", "Class 3", "Class 4"].map((cls, i) => (
-    <Link key={i} href="/ClassesPage">
-      <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
-        <View style={styles.iconTile}>
-          <View style={styles.iconInner} />
-        </View>
-        <Text style={styles.className}>{cls}</Text>
-      </Pressable>
-    </Link>
-  ))}
-</View>
+
+        {/* Class 1 */}
+        <Link href="/ClassesPage/1" asChild>
+          <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
+            <View style={styles.iconTile}>
+              <View style={styles.iconInner} />
+            </View>
+            <Text style={styles.className}>Class 1</Text>
+          </Pressable>
+        </Link>
+
+        {/* Class 2 */}
+        <Link href="/ClassesPage/2" asChild>
+          <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
+            <View style={styles.iconTile}>
+              <View style={styles.iconInner} />
+            </View>
+            <Text style={styles.className}>Class 2</Text>
+          </Pressable>
+        </Link>
+
+        {/* Class 3 */}
+        <Link href="/ClassesPage/3" asChild>
+          <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
+            <View style={styles.iconTile}>
+              <View style={styles.iconInner} />
+            </View>
+            <Text style={styles.className}>Class 3</Text>
+          </Pressable>
+        </Link>
+
+        {/* Class 4 */}
+        <Link href="/ClassesPage/4" asChild>
+          <Pressable style={StyleSheet.flatten([styles.classCard, styles.shadowSm])}>
+            <View style={styles.iconTile}>
+              <View style={styles.iconInner} />
+            </View>
+            <Text style={styles.className}>Class 4</Text>
+          </Pressable>
+        </Link>
+
+      </View>
     </DashboardBase>
   );
 }
