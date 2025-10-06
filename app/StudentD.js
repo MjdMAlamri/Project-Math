@@ -10,11 +10,11 @@ import {
   Image,
   Platform,
   ScrollView,
+  Linking as RNLinking,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { Linking } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -34,6 +34,13 @@ const G = 20;
 const SIDEBAR_W = 220;
 const BANNER_MIN_HEIGHT = 160;
 
+/** <<< EDIT ONLY THESE TO CHANGE WHERE "MORE" GOES >>> */
+const MORE_LINKS = {
+  games: "/games-mode",            // or "https://your-site/games"
+  educational: "/educational",     // or "edu" to use sidebar keys
+  leaderboard: "/leaderboard",
+};
+
 export default function Dashboard() {
   const router = useRouter();
 
@@ -46,6 +53,7 @@ export default function Dashboard() {
   const [tasksCardH, setTasksCardH] = useState(0);
   const [leaderboardH, setLeaderboardH] = useState(0);
 
+  /** Map sidebar keys to routes */
   const navigateFromSidebar = (keyOrPath) => {
     if (!keyOrPath) return;
     if (typeof keyOrPath === "string" && keyOrPath.startsWith("/")) {
@@ -61,6 +69,22 @@ export default function Dashboard() {
       quiz: "/Join-Quiz",
     };
     router.push(map[keyOrPath] || "/");
+  };
+
+  /** Open helper for "More" buttons:
+   * - http/https => external
+   * - startsWith("/") => expo-router push
+   * - otherwise => treat as sidebar key and use navigateFromSidebar
+   */
+  const open = (to) => {
+    if (!to) return;
+    if (typeof to === "string" && /^https?:\/\//i.test(to)) {
+      RNLinking.openURL(to);
+    } else if (typeof to === "string" && to.startsWith("/")) {
+      router.push(to);
+    } else {
+      navigateFromSidebar(to);
+    }
   };
 
   return (
@@ -138,25 +162,30 @@ export default function Dashboard() {
             <View style={styles.leftCol}>
               <View style={styles.leftSplitRow}>
                 {/* Games */}
-                <CardWithHeader title="Games" style={{ flex: 1 }} minH={leaderboardH}>
+                <CardWithHeader
+                  title="Games"
+                  style={{ flex: 1 }}
+                  minH={leaderboardH}
+                  onMorePress={() => open(MORE_LINKS.games)}
+                >
                   <View style={styles.tileRow}>
                     <Pressable
-                      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")}
+                      onPress={() => RNLinking.openURL("https://math-gesture-program.netlify.app/thumbs")}
                       style={styles.tileWrap}
                     >
                       <Image
-                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TrueorFalse:MathEditionGame" }}
                         style={styles.tileImg}
                         resizeMode="cover"
                       />
                     </Pressable>
 
                     <Pressable
-                      onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")}
+                      onPress={() => RNLinking.openURL("https://math-gesture-program.netlify.app/numbers")}
                       style={styles.tileWrap}
                     >
                       <Image
-                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunGame" }}
                         style={styles.tileImg}
                         resizeMode="cover"
                       />
@@ -164,20 +193,25 @@ export default function Dashboard() {
                   </View>
 
                   <View style={styles.tileLabelsRow}>
-                    <Text style={styles.tileLabel}>Thumbs</Text>
+                    <Text style={styles.tileLabel}>True or False</Text>
                     <Text style={styles.tileLabel}>Count & Run</Text>
                   </View>
                 </CardWithHeader>
 
                 {/* Educational */}
-                <CardWithHeader title="Educational" style={{ flex: 1 }} minH={leaderboardH}>
+                <CardWithHeader
+                  title="Educational"
+                  style={{ flex: 1 }}
+                  minH={leaderboardH}
+                  onMorePress={() => open(MORE_LINKS.educational)}
+                >
                   <View style={styles.tileRow}>
                     <Pressable
-                      onPress={() => Linking.openURL("https://edventure-educational-mode.netlify.app/")}
+                      onPress={() => RNLinking.openURL("https://edventure-educational-mode.netlify.app/")}
                       style={styles.tileWrap}
                     >
                       <Image
-                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
+                        source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/EdcMode" }}
                         style={styles.tileImg}
                         resizeMode="cover"
                       />
@@ -193,7 +227,11 @@ export default function Dashboard() {
             {/* RIGHT: Leaderboard */}
             <View style={styles.rightCol}>
               <View onLayout={(e) => setLeaderboardH(e.nativeEvent.layout.height)}>
-                <CardWithHeader title="Leaderboard" compact>
+                <CardWithHeader
+                  title="Leaderboard"
+                  compact
+                  onMorePress={() => open(MORE_LINKS.leaderboard)}
+                >
                   <View style={styles.leaderboard}>
                     <Podium place={2} name="Maher" points={640} />
                     <Podium place={1} name="Salman" points={660} big />
@@ -301,13 +339,13 @@ const Sidebar = ({ current = "dashboard", onNavigate }) => {
 };
 
 /* ---------- REUSABLE UI ---------- */
-function CardWithHeader({ title, children, ctaText = "More", compact = false, style, minH }) {
+function CardWithHeader({ title, children, ctaText = "More", compact = false, style, minH, onMorePress }) {
   return (
     <View style={[styles.card, styles.shadow, style, minH ? { minHeight: minH } : null]}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardTitle}>{title}</Text>
         {ctaText ? (
-          <Pressable style={styles.moreBtn}>
+          <Pressable style={styles.moreBtn} onPress={onMorePress}>
             <Text style={styles.moreText}>{ctaText}</Text>
           </Pressable>
         ) : null}
@@ -504,10 +542,10 @@ const styles = StyleSheet.create({
     borderColor: "#E6ECFF",
     borderRadius: 16,
     minWidth: 140,
-    minHeight: 130,      // consistent box height
+    minHeight: 130,
   },
   tileImg: {
-    width: 200,          // slightly smaller so padding is visible
+    width: 200,
     height: 110,
     borderRadius: 12,
     resizeMode: "cover",
@@ -538,4 +576,3 @@ const styles = StyleSheet.create({
   taskText: { color: COLORS.subtext, fontSize: 12, lineHeight: 16 },
   taskLink: { color: COLORS.blue, fontWeight: "800", marginTop: 6 },
 });
-

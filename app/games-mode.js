@@ -273,16 +273,16 @@ export default function GamesModeScreen() {
 <View style={styles.row}>
   {/* Game 1 */}
   <View style={[styles.cardWide, { marginRight: 18 }]}>
-    <Text style={styles.cardTitle}>Game 1</Text>
+    <Text style={styles.cardTitle}>True or False</Text>
     <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game2" }}
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/TrueorFalse:MathEditionGame" }}
       style={styles.gameImg}
       resizeMode="cover"
     />
     <View style={styles.gameBtns}>
       <Pressable
         style={styles.btnPrimary}
-        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/#/thumbs")}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/thumbs")}
       >
         <Text style={styles.btnPrimaryText}>Play</Text>
       </Pressable>
@@ -293,14 +293,14 @@ export default function GamesModeScreen() {
   <View style={[styles.cardWide, { marginRight: 18 }]}>
     <Text style={styles.cardTitle}>Count & Run</Text>
     <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunPoster" }}
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Count&RunGame" }}
       style={styles.gameImg}
       resizeMode="cover"
     />
     <View style={styles.gameBtns}>
       <Pressable
         style={styles.btnPrimary}
-        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/#/numbers")}
+        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/numbers")}
       >
         <Text style={styles.btnPrimaryText}>Play</Text>
       </Pressable>
@@ -309,16 +309,16 @@ export default function GamesModeScreen() {
 
   {/* Game 3 */}
   <View style={[styles.cardWide, { marginRight: 18 }]}>
-    <Text style={styles.cardTitle}>Game 3</Text>
+    <Text style={styles.cardTitle}>Math Draw</Text>
     <Image
-      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/Game3" }}
+      source={{ uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/MathDrawGame" }}
       style={styles.gameImg}
       resizeMode="cover"
     />
     <View style={styles.gameBtns}>
       <Pressable
         style={styles.btnPrimary}
-        onPress={() => Linking.openURL("https://math-gesture-program.netlify.app/")}
+        onPress={() => Linking.openURL("https://precious-jelly-8b70ea.netlify.app/")}
       >
         <Text style={styles.btnPrimaryText}>Play</Text>
       </Pressable>

@@ -13,11 +13,12 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import HeroImg from "../assets/images/Homepageimg.png"; // import instead of require (more reliable on web)
 
 const { width } = Dimensions.get("window");
 const MAX_W = 1200;
-const AUTH_BTN_W = 140;   // <- pick the width you like
-const AUTH_BTN_H = 44;    // <- button height
+const AUTH_BTN_W = 140;
+const AUTH_BTN_H = 44;
 
 const COLORS = {
   navy: "#0C2A5B",
@@ -40,27 +41,24 @@ const HERO_SHIFT = 60;
 
 export default function HomeScreen() {
   const scrollRef = useRef(null);
-  const aboutRef = useRef(null); 
+  const aboutRef = useRef(null);
   const [aboutY, setAboutY] = useState(0);
 
   const scrollToAbout = () => {
     if (!scrollRef.current || !aboutRef.current) return;
-  
-    // Web uses a different node for measuring:
     const scrollNode =
       typeof scrollRef.current.getScrollableNode === "function"
         ? scrollRef.current.getScrollableNode()
         : scrollRef.current;
-  
+
     aboutRef.current.measureLayout(
       scrollNode,
       (x, y) => {
         scrollRef.current.scrollTo({ y: Math.max(y - 12, 0), animated: true });
       },
-      () => {} // optional error callback
+      () => {}
     );
   };
-  
 
   return (
     <ScrollView
@@ -73,30 +71,34 @@ export default function HomeScreen() {
       <View style={styles.heroWrap}>
         <View style={[styles.navPill, shadow]}>
           <View style={styles.brandRow}>
-          <View style={styles.logoBox}>
-  <Image
-    source={{
-      uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo",
-    }}
-    style={{ width: 24, height: 24, resizeMode: "contain" }}
-  />
-</View>
-
+            <View style={styles.logoBox}>
+              <Image
+                source={{
+                  uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo",
+                }}
+                style={{ width: 24, height: 24, resizeMode: "contain" }}
+              />
+            </View>
             <Text style={styles.brandName}>EdVenture</Text>
           </View>
 
           <View style={styles.navCenter}>
-            <Pressable style={styles.navItem} onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })}>
+            <Pressable
+              style={styles.navItem}
+              onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })}
+            >
               <Text style={styles.navTextActive}>Home</Text>
             </Pressable>
             <Pressable style={styles.navItem} onPress={scrollToAbout}>
               <Text style={styles.navText}>About</Text>
             </Pressable>
-            <Pressable style={styles.navItem} onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}>
+            <Pressable
+              style={styles.navItem}
+              onPress={() => Linking.openURL("https://math-gesture-program.netlify.app")}
+            >
               <Text style={styles.navText}>Contact us</Text>
             </Pressable>
           </View>
-
 
           <View style={styles.authRow}>
             <Link href="/Login" asChild>
@@ -105,9 +107,11 @@ export default function HomeScreen() {
               </Pressable>
             </Link>
 
-            <Pressable style={styles.signupBtn}>
-              <Text style={styles.signupTxt}>Sign Up</Text>
-            </Pressable>
+            <Link href="/Login" asChild>
+              <Pressable style={styles.signupBtn}>
+                <Text style={styles.signupTxt}>Sign Up</Text>
+              </Pressable>
+            </Link>
           </View>
         </View>
 
@@ -122,21 +126,17 @@ export default function HomeScreen() {
             </Text>
 
             <View style={{ flexDirection: "row", gap: S }}>
-            <Link href="/Login" asChild>
-  <Pressable style={ styles.cta}>
-    <Text style={styles.ctaPrimaryText}>Get Started</Text>
-  </Pressable>
-</Link> 
+              <Link href="/Login" asChild>
+                <Pressable style={styles.cta}>
+                  <Text style={styles.ctaPrimaryText}>Get Started</Text>
+                </Pressable>
+              </Link>
             </View>
           </View>
+
           <View style={styles.heroRight}>
             <View style={styles.illoCard}>
-            <Image
-  source={require("../assets/images/Homepageimg.png")}
-  style={styles.illoImg}
-  resizeMode="contain"
-/>
-
+              <Image source={HeroImg} style={styles.illoImg} resizeMode="contain" />
               <View style={[styles.star, { top: -10, right: -10 }]} />
               <View style={[styles.star, { bottom: -10, left: -10 }]} />
             </View>
@@ -144,46 +144,41 @@ export default function HomeScreen() {
         </View>
       </View>
 
-    {/* ===== TRUST BAR ===== */}
-<View style={[styles.trustCard, shadow]}>
-  <View style={styles.trustTextWrap}>
-    <Text style={styles.trustTitle}>
-      Trusted by over 50+{"\n"}educational institution
-    </Text>
-  </View>
-  <View style={styles.trustLogosWrap}>
-  {[
-      "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo1",
-      "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo2",
-      "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo3",
-      "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo4",
-      "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo5",
-    ].map((logo, i) => (
-      <Image
-        key={i}
-        source={{ uri: logo }}
-        style={{
-          width: 70,          // bigger
-          height: 40,         // adjust height
-          borderRadius: 20,    // rounded corners
-          resizeMode: "contain",
-        }}
-      />
-    ))}
-  </View>
-</View>
-
-
-
+      {/* ===== TRUST BAR ===== */}
+      <View style={[styles.trustCard, shadow]}>
+        <View style={styles.trustTextWrap}>
+          <Text style={styles.trustTitle}>
+            Trusted by over 50+{"\n"}educational institution
+          </Text>
+        </View>
+        <View style={styles.trustLogosWrap}>
+          {[
+            "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo1",
+            "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo2",
+            "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo3",
+            "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo4",
+            "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SchoolLogo5",
+          ].map((logo, i) => (
+            <Image
+              key={i}
+              source={{ uri: logo }}
+              style={{
+                width: 70,
+                height: 40,
+                borderRadius: 20,
+                resizeMode: "contain",
+              }}
+            />
+          ))}
+        </View>
+      </View>
 
       {/* ===== ABOUT + VIDEO (single grey band with margins) ===== */}
       <View style={styles.aboutWrap}>
         <View style={styles.contentMax}>
-        <View ref={aboutRef} collapsable={false} />
+          <View ref={aboutRef} collapsable={false} />
 
-          <View
-            style={styles.aboutSection}
-          >
+          <View style={styles.aboutSection}>
             <Text style={styles.sectionKickerBlue}>ABOUT EdVenture</Text>
 
             <Text style={styles.aboutTitle}>
@@ -226,25 +221,38 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.aboutCtas}>
-              <Pressable style={styles.btnPrimaryFill} onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}>
+              <Pressable
+                style={styles.btnPrimaryFill}
+                onPress={() => Linking.openURL("https://math-gesture-program.netlify.app")}
+              >
                 <Text style={styles.btnPrimaryFillTxt}>More About Us</Text>
               </Pressable>
               <Pressable
-  style={styles.btnOutline}
-  onPress={() => Linking.openURL("https://edventure-landing.netlify.app/")}
->
-  <Text style={styles.btnOutlineTxt}>Contact Us</Text>
-</Pressable>
+                style={styles.btnOutline}
+                onPress={() => Linking.openURL("https://math-gesture-program.netlify.app")}
+              >
+                <Text style={styles.btnOutlineTxt}>Contact Us</Text>
+              </Pressable>
             </View>
           </View>
 
           {/* Video (inside same grey band, shares margins) */}
           <View style={[styles.bottomVideo, { paddingHorizontal: 0 }]}>
-            <View className="videoBox" style={styles.videoBox}>
-              <View style={styles.playBtn}>
-                <Text style={{ color: COLORS.white, fontWeight: "700" }}>▶</Text>
+            {Platform.OS === "web" ? (
+              <iframe
+                src="https://www.youtube.com/embed/VIDEO_ID" // <-- put your video URL/ID
+                style={styles.videoFrame}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                title="EdVenture demo video"
+              />
+            ) : (
+              <View className="videoBox" style={styles.videoBox}>
+                <View style={styles.playBtn}>
+                  <Text style={{ color: COLORS.white, fontWeight: "700" }}>▶</Text>
+                </View>
               </View>
-            </View>
+            )}
           </View>
         </View>
       </View>
@@ -253,35 +261,33 @@ export default function HomeScreen() {
       <View style={styles.footer}>
         <View style={styles.footerTop}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: S }}>
-          <View style={styles.logoBox}>
-  <Image
-    source={{
-      uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo",
-    }}
-    style={{ width: 24, height: 24, resizeMode: "contain" }}
-  />
-</View>
+            <View style={styles.logoBox}>
+              <Image
+                source={{
+                  uri: "https://github.com/MjdMAlamri/Images/raw/refs/heads/main/SmallLogo",
+                }}
+                style={{ width: 24, height: 24, resizeMode: "contain" }}
+              />
+            </View>
             <Text style={[styles.brandName, { color: COLORS.white }]}>EdVenture</Text>
           </View>
 
-          {/* Two rows / two links per row */}
           <View style={styles.footerLinks}>
-  <View style={styles.footerCol}>
-    <Text style={styles.footerLinkText}>About Us</Text>
-    <Text style={styles.footerLinkText}>Our Team</Text>
-  </View>
+            <View style={styles.footerCol}>
+              <Text style={styles.footerLinkText}>About Us</Text>
+              <Text style={styles.footerLinkText}>Our Team</Text>
+            </View>
 
-  <View style={styles.footerCol}>
-    <Text style={styles.footerLinkText}>FAQ</Text>
-    <Text style={styles.footerLinkText}>Careers</Text>
-  </View>
-  </View></View>
-
+            <View style={styles.footerCol}>
+              <Text style={styles.footerLinkText}>FAQ</Text>
+              <Text style={styles.footerLinkText}>Careers</Text>
+            </View>
+          </View>
+        </View>
 
         <View style={styles.footerBottom}>
           <Text style={styles.copyText}>© 2025 EdVenture. All rights reserved.</Text>
 
-          {/* Social icons: YouTube, Instagram, LinkedIn */}
           <View style={styles.socialRow}>
             <Pressable style={styles.socialIcon}>
               <Ionicons name="logo-youtube" size={16} color="#fff" />
@@ -357,26 +363,24 @@ const shadow = Platform.select({
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.white },
+
   footerLinks: {
     flexDirection: "row",
-    gap: 40,                  // space between the two columns
+    gap: 40,
   },
-  footerCol: {
-    flexDirection: "column",  // stack items vertically
-    gap: 6,
-  },
-  footerLinkText: {
-    color: "#C7D2FE",
-    fontSize: 12,
-  },
-  
+  footerCol: { flexDirection: "column", gap: 6 },
+  footerLinkText: { color: "#C7D2FE", fontSize: 12 },
+
   /* ===== HERO ===== */
   heroWrap: {
     backgroundColor: COLORS.navy,
     paddingTop: G / 2,
     paddingBottom: G,
     paddingHorizontal: G,
-    height: "55%",
+    ...Platform.select({
+      web: { minHeight: 560 }, // avoid % height on web
+      default: {},
+    }),
   },
   navPill: {
     position: "relative",
@@ -395,7 +399,6 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 8,
-    //backgroundColor: COLORS.navy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -416,10 +419,10 @@ const styles = StyleSheet.create({
   navText: { color: COLORS.navy, fontSize: 14, opacity: 0.9 },
   navTextActive: { color: COLORS.navy, fontWeight: "700", fontSize: 14 },
   authRow: { flexDirection: "row", alignItems: "center", gap: S },
-  
+
   loginTxt: { color: COLORS.white, fontWeight: "700", fontSize: 14 },
-  
   signupTxt: { color: COLORS.linkBlue, fontWeight: "700", fontSize: 14 },
+
   loginBtn: {
     backgroundColor: "#5B86E5",
     width: AUTH_BTN_W,
@@ -427,11 +430,9 @@ const styles = StyleSheet.create({
     borderRadius: AUTH_BTN_H / 2,
     alignItems: "center",
     justifyContent: "center",
-    // remove padding so size is controlled by width/height
     paddingHorizontal: 0,
     paddingVertical: 0,
   },
-  
   signupBtn: {
     backgroundColor: COLORS.white,
     borderWidth: 2,
@@ -444,13 +445,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
   },
-  
+
   heroCard: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    transform: [{ translateX: HERO_SHIFT }, { translateY: HERO_SHIFT }],
     gap: S * 4,
+    ...Platform.select({
+      web: { marginTop: HERO_SHIFT, marginLeft: HERO_SHIFT }, // replace big transform on web
+      default: { transform: [{ translateX: HERO_SHIFT }, { translateY: HERO_SHIFT }] },
+    }),
+    overflow: "visible",
   },
   heroLeft: {
     flex: 1,
@@ -461,21 +466,15 @@ const styles = StyleSheet.create({
   heroTitle: { color: COLORS.white, fontSize: 42, fontWeight: "900", lineHeight: 50 },
   heroSubtitle: { color: "#C7D2FE", fontSize: 18, lineHeight: 26 },
   cta: {
-    paddingHorizontal: S * 25, // wide
-    paddingVertical: S * 2, // tall
+    paddingHorizontal: S * 25,
+    paddingVertical: S * 2,
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white,
   },
- // ctaPrimary: { backgroundColor: COLORS.white },
-  ctaPrimaryText: {
-    color: COLORS.navy,
-    fontWeight: "900",
-    fontSize: 28,
-    lineHeight: 34,
-  },
+  ctaPrimaryText: { color: COLORS.navy, fontWeight: "900", fontSize: 28, lineHeight: 34 },
   chip: {
     backgroundColor: COLORS.chip,
     paddingHorizontal: S * 1.25,
@@ -487,9 +486,12 @@ const styles = StyleSheet.create({
   heroRight: { flex: 1.15, alignItems: "center", justifyContent: "center" },
   illoCard: {
     width: Math.min(width - G * 2 - S * 3, 740),
-    height: Math.min(width * 0.55, 540),
+    ...Platform.select({
+      web: { aspectRatio: 16 / 9 }, // stable art box on web
+      default: { height: Math.min(width * 0.55, 540) },
+    }),
     borderRadius: 18,
-    marginLeft: S+25,
+    marginLeft: S + 25,
     alignItems: "center",
     justifyContent: "center",
     ...shadow,
@@ -513,28 +515,20 @@ const styles = StyleSheet.create({
     marginTop: G,
     paddingHorizontal: S * 2,
     paddingVertical: S * 2,
-  
-    flexDirection: "row",       // keep title + logos in a row
-    alignItems: "center",       // vertical centering
-    justifyContent: "center",   // horizontal centering
-    gap: 90,                    // space between title and logos
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 90,
   },
-  
-  
-  
-  
   trustTitle: { color: COLORS.text, fontSize: 18, lineHeight: 20, fontWeight: "700" },
   trustLogosWrap: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",   // logos centered within their space
+    justifyContent: "center",
     gap: 16,
   },
-  
-  trustTextWrap: {
-    paddingRight: S * 2,
-  },
-  
+  trustTextWrap: { paddingRight: S * 2 },
+
   partnerCircle: {
     width: 40,
     height: 40,
@@ -548,11 +542,10 @@ const styles = StyleSheet.create({
   partnerLogo: {
     width: 70,
     height: 70,
-    borderRadius: 12,   // rounded edges
+    borderRadius: 12,
     resizeMode: "contain",
-    marginHorizontal: 10, // small spacing between logos
+    marginHorizontal: 10,
   },
-  
 
   /* ===== ABOUT + VIDEO WRAP ===== */
   aboutWrap: {
@@ -583,12 +576,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     marginBottom: S * 2,
   },
-  hr: {
-    height: 1,
-    backgroundColor: COLORS.border,
-    opacity: 0.9,
-    marginVertical: S * 2,
-  },
+  hr: { height: 1, backgroundColor: COLORS.border, opacity: 0.9, marginVertical: S * 2 },
   featuresInline: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -610,17 +598,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.primaryLight,
   },
-  inlineTitle: {
-    color: "#334155",
-    fontSize: 16,
-    fontWeight: "800",
-    marginBottom: S / 2,
-  },
-  inlineDesc: {
-    color: COLORS.subtext,
-    fontSize: 13,
-    lineHeight: 18,
-  },
+  inlineTitle: { color: "#334155", fontSize: 16, fontWeight: "800", marginBottom: S / 2 },
+  inlineDesc: { color: COLORS.subtext, fontSize: 13, lineHeight: 18 },
 
   statsInline: {
     marginTop: S * 4,
@@ -628,22 +607,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  statInlineItem: {
-    flex: 1,
-    alignItems: "center",
-    paddingHorizontal: S,
-  },
-  statBig: {
-    color: COLORS.navy,
-    fontSize: 34,
-    fontWeight: "900",
-    marginBottom: S,
-  },
-  statSmall: {
-    color: COLORS.subtext,
-    fontSize: 12,
-    textAlign: "center",
-  },
+  statInlineItem: { flex: 1, alignItems: "center", paddingHorizontal: S },
+  statBig: { color: COLORS.navy, fontSize: 34, fontWeight: "900", marginBottom: S },
+  statSmall: { color: COLORS.subtext, fontSize: 12, textAlign: "center" },
   vr: { width: 1, height: 56, backgroundColor: "#0C2A5B", opacity: 0.9 },
 
   aboutCtas: {
@@ -651,7 +617,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: S * 2,
-    paddingTop:30,
+    paddingTop: 30,
   },
   btnPrimaryFill: {
     backgroundColor: COLORS.linkBlue,
@@ -671,18 +637,21 @@ const styles = StyleSheet.create({
   btnOutlineTxt: { color: COLORS.navy, fontWeight: "800" },
 
   /* ===== Bottom Video ===== */
-  bottomVideo: {
-    paddingTop: G,
-    paddingBottom: G,
-    alignItems: "center",
-  },
+  bottomVideo: { paddingTop: G, paddingBottom: G, alignItems: "center" },
   videoBox: {
     width: Math.min(width - G * 2, 640),
-    height: 220,
+    height: 220, // native placeholder
     backgroundColor: "#2E3342",
     borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
+  },
+  videoFrame: {
+    width: Math.min(width - G * 2, 640),
+    aspectRatio: 16 / 9, // keeps ratio on web
+    border: "none",
+    borderRadius: 14,
+    overflow: "hidden",
   },
   playBtn: {
     width: 56,
@@ -701,15 +670,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: S * 2,
   },
-
   footerLinkRow: {
     flexDirection: "row",
-    justifyContent: "space-between", // <— evenly spread
-    width: 120,                      // <— fixed width so both rows align
+    justifyContent: "space-between",
+    width: 120,
   },
-  
-
-
   footerBottom: {
     borderTopWidth: 1,
     borderTopColor: "rgba(255,255,255,0.12)",
@@ -719,7 +684,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   copyText: { color: "#C7D2FE", fontSize: 12 },
-
   socialRow: { flexDirection: "row", gap: 10 },
   socialIcon: {
     width: 34,
