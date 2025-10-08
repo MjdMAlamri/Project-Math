@@ -237,25 +237,28 @@ export default function HomeScreen() {
           </View>
 
           {/* Video (inside same grey band, shares margins) */}
-          <View style={[styles.bottomVideo, { paddingHorizontal: 0 }]}>
-            {Platform.OS === "web" ? (
-              <iframe
-                src="https://www.youtube.com/embed/VIDEO_ID" // <-- put your video URL/ID
-                style={styles.videoFrame}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                title="EdVenture demo video"
-              />
-            ) : (
-              <View className="videoBox" style={styles.videoBox}>
-                <View style={styles.playBtn}>
-                  <Text style={{ color: COLORS.white, fontWeight: "700" }}>▶</Text>
-                </View>
-              </View>
-            )}
-          </View>
-        </View>
+<View style={[styles.bottomVideo, { paddingHorizontal: 0 }]}>
+  {Platform.OS === "web" ? (
+    <View style={styles.videoResponsive}>
+      <iframe
+        src="https://www.youtube.com/embed/FWhTFumayI4?rel=0&modestbranding=1"
+        style={styles.videoIframe}
+        width="100%"
+        height="100%"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        title="EdVenture demo video"
+      />
+    </View>
+  ) : (
+    <View style={styles.videoBox}>
+      <View style={styles.playBtn}>
+        <Text style={{ color: COLORS.white, fontWeight: "700" }}>▶</Text>
       </View>
+    </View>
+  )}
+</View>
+</View></View>
 
       {/* ===== FOOTER ===== */}
       <View style={styles.footer}>
@@ -504,7 +507,18 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     transform: [{ rotate: "45deg" }],
   },
-
+  videoResponsive: {
+    width: Math.min(width - G * 2, 960),
+    aspectRatio: 16 / 9,        // RNW supports this on <View/>
+    borderRadius: 14,
+    overflow: "hidden",
+  },
+  videoIframe: {
+    width: "100%",
+    height: "100%",
+    border: "none",
+  },
+  
   /* ===== TRUST BAR ===== */
   trustCard: {
     backgroundColor: COLORS.white,

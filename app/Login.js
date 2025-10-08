@@ -168,7 +168,7 @@ export default function Login() {
                   <Text style={styles.roleLink}>Student</Text>
                 </Link>
                 <Text style={styles.roleDivider}>•</Text>
-                <Link href="/TeacherD">
+                <Link href="/teacherd">
                   <Text style={styles.roleLink}>Teacher</Text>
                 </Link>
               </View>
