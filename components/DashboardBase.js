@@ -36,7 +36,7 @@ export default function DashboardBase({ children, contentContainerStyle }) {
   const pathname = usePathname() || "/";
 
   const ITEMS = [
-    { href: "/TeacherD",        icon: "speedometer-outline",  label: "Dashboard" },
+    { href: "/teacherd",        icon: "speedometer-outline",  label: "Dashboard" },
     { href: "/ClassesMain",     icon: "people-outline",       label: "Classes" },
     { href: "/Announcements",   icon: "notifications-outline",label: "Announcements" },
     { href: "/leaderboardForT", icon: "podium-outline",       label: "Leaderboard" },
